@@ -10,12 +10,15 @@ void makeVector(vector<int> &);
 void insertVector(vector<int> &, int);
 int deleteVector(vector<int> &, int);
 
-int randnum(void);
 int getInput(void);
 void printVector(vector<int>);
 
 void makeVector(vector<int> &number)
 {
+	srand(time(0));
+	for (int i = 0; i < number.size(); i++)
+		number[i] = random() % 20;
+	sort(number.begin(), number.end());
 }
 void insertVector(vector<int> &number, int usernum)
 {
@@ -29,10 +32,6 @@ int getInput(void)
 	cout << "Enter your input\n";
 	cin >> num;
 	return num;
-}
-int randnum(void)
-{
-	return rand() % 20;
 }
 void printVector(vector<int> number)
 {

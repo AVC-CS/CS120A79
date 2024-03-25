@@ -10,6 +10,7 @@ TEST_CASE("Ex1 insertVector() ", "[example]")
 	int usernum, idx;
 	vector<int> number(10);
 
+	srand(time(0));
 	makeVector(number);
 	printVector(number);
 	usernum = 15;
@@ -29,29 +30,45 @@ TEST_CASE("Ex1 insertVector() ", "[example]")
 // tests for exercise 2
 TEST_CASE("Ex2 deleteVector()", "[example]")
 {
-	const int SIZE = 10;
+	const int SIZE = 30;
 	int usernum, idx, result, size;
-	vector<int> number(10);
+	int cnt1 = 0;
+	int cnt2 = 0;
+	vector<int> number(SIZE);
 	vector<int>::iterator iter;
+
+	srand(time(0));
 
 	makeVector(number);
 	printVector(number);
-	usernum = 15;
-	iter = find(number.begin(), number.end(), usernum);
+	usernum = 16;
+	iter = number.begin();
+	while (1)
+	{
+		iter = find(iter, number.end(), usernum);
+		if (iter == number.end())
+			break;
+		iter += 1;
+		cnt1 += 1;
+	}
 	size = number.size();
-
 	result = deleteVector(number, usernum);
 	printVector(number);
 
-	if (iter != number.end())
+	if (cnt1 > 0)
 	{
-		idx = distance(number.begin(), iter);
-		REQUIRE(number[idx] != usernum);
 		REQUIRE(number.size() == size - 1);
 	}
-	else
+	iter = number.begin();
+	while (1)
 	{
-		REQUIRE(result == -1);
-		REQUIRE(number.size() == size);
+		iter = find(iter, number.end(), usernum);
+		if (iter == number.end())
+			break;
+		cout << "debug iter " << *iter << endl;
+		cout << distance(number.begin() , iter);
+		iter += 1;
+		cnt2 += 1;
 	}
+	REQUIRE(cnt1-1 == cnt2);
 }
