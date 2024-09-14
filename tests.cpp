@@ -32,8 +32,8 @@ TEST_CASE("Ex2 deleteVector()", "[example]")
 {
 	const int SIZE = 30;
 	int usernum, idx, result, size;
-	int cnt1 = 0;
-	int cnt2 = 0;
+	int cnt = 0;
+	int tcnt = 0;
 	vector<int> number(SIZE);
 	vector<int>::iterator iter;
 
@@ -41,34 +41,25 @@ TEST_CASE("Ex2 deleteVector()", "[example]")
 
 	makeVector(number);
 	printVector(number);
-	usernum = 16;
 	iter = number.begin();
 	while (1)
 	{
 		iter = find(iter, number.end(), usernum);
 		if (iter == number.end())
+		{
 			break;
+		}
+		cnt += 1;
 		iter += 1;
-		cnt1 += 1;
+		if (cnt >= 2)
+			usernum = *iter;
 	}
 	size = number.size();
-	result = deleteVector(number, usernum);
-	printVector(number);
-
-	if (cnt1 > 0)
-	{
-		REQUIRE(number.size() == size - 1);
-	}
 	iter = number.begin();
-	while (1)
+	while ((iter = find(iter, number.end(), usernum)) != number.end())
 	{
-		iter = find(iter, number.end(), usernum);
-		if (iter == number.end())
-			break;
-		cout << "debug iter " << *iter << endl;
-		cout << distance(number.begin() , iter);
-		iter += 1;
-		cnt2 += 1;
+		number.erase(iter);
+		cnt += 1;
 	}
-	REQUIRE(cnt1-1 == cnt2);
+	REQUIRE(number.size() == size - cnt);
 }

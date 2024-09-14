@@ -17,6 +17,7 @@ int main()
 
 	usernum = getInput();
 	printVector(number);
-	deleteVector(number, usernum);
+	int cnt = deleteVector(number, usernum);
+	cout << "The deleted element is " << cnt << endl;
 	printVector(number);
 }
