@@ -31,35 +31,18 @@ TEST_CASE("Ex1 insertVector() ", "[example]")
 TEST_CASE("Ex2 deleteVector()", "[example]")
 {
 	const int SIZE = 30;
-	int usernum, idx, result, size;
+	int usernum, delcnt, result;
 	int cnt = 0;
-	int tcnt = 0;
 	vector<int> number(SIZE);
 	vector<int>::iterator iter;
 
 	srand(time(0));
-
 	makeVector(number);
 	printVector(number);
-	iter = number.begin();
-	while (1)
-	{
-		iter = find(iter, number.end(), usernum);
-		if (iter == number.end())
-		{
-			break;
-		}
-		cnt += 1;
-		iter += 1;
-		if (cnt >= 2)
-			usernum = *iter;
-	}
-	size = number.size();
-	iter = number.begin();
-	while ((iter = find(iter, number.end(), usernum)) != number.end())
-	{
-		number.erase(iter);
-		cnt += 1;
-	}
-	REQUIRE(number.size() == size - cnt);
+	usernum = number[2];
+	delcnt = count(number.begin(), number.end(), usernum);
+	cout << " deleted count shoudl be " << delcnt << endl;
+	result = deleteVector(number, usernum);
+
+	REQUIRE(delcnt == result);
 }
